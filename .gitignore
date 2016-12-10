@@ -1,0 +1,8 @@
+/doc/
+/libs/
+/lib/
+/bin/
+/.shards/
+/.crystal-version
+/shard.lock
+/squid-cache
