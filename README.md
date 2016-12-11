@@ -8,7 +8,12 @@ squid-cache utility
 ## Usage
 
 ```shell
-squid-cache list
+% squid-cache check
+/var/spool/squid/00/00/err:[meta(0).length](reading 4 bytes from 6) end of file reached
+
+% squid-cache list
+/var/spool/squid/00/00/0000000E: KEY_MD5(204)
+...
 ```
 
 ## Contributing

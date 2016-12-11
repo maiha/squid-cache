@@ -3,12 +3,10 @@ record Squid::Meta,
   len   : Int32,
   value : Bytes do
 
-  def self.from_io(io : IO)
-    type  = io.read_bytes(UInt8)
-    len   = io.read_bytes(Int32)
-    value = Bytes.new(len)
-
-    io.read_fully(value)
+  def self.from_reader(reader : BytesReader, clue : String)
+    type  = reader.uint8("#{clue}.type")
+    len   = reader.int32("#{clue}.length")
+    value = reader.read(len, "#{clue}.value")
     new(type, len, value)
   end
 

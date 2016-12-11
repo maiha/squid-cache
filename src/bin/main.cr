@@ -22,14 +22,16 @@ class Main
     {{options}}
 
     Commands:
+      check        print broken cache
       list         print all cache etnry
     EOF
 
   def run
     cmd = args.shift { die "command not found!" }
-    prog = Squid::Program.new(dir)
+    prog = Squid::Program.new(dir, verbose)
     case cmd
-    when "list" then prog.list(verbose)
+    when "check"  then prog.check
+    when "list"   then prog.list
     else
       die "command not supported: #{cmd} "
     end

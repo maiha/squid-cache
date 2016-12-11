@@ -9,6 +9,10 @@ dependencies:
     github: maiha/try.cr
     version: 0.1.0
 
+  ext:
+    github: maiha/ext.cr
+    version: 0.1.2
+
   opts:
     github: maiha/opts.cr
     version: 0.1.0
