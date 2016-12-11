@@ -1,8 +1,9 @@
-# squid-cache
+# squid-cache [![Build Status](https://travis-ci.org/maiha/squid-cache.svg?branch=master)](https://travis-ci.org/maiha/squid-cache)
 
 squid-cache utility
 
-- powered [crystal](http://crystal-lang.org/)-0.20.1
+- powered by [crystal](http://crystal-lang.org/)-0.20.1
+- squid-3.5.12
 
 ## Usage
 
