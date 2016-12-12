@@ -10,6 +10,16 @@ class Squid::Program
     end
   end
 
+  def keys
+    each do |try|
+      case try
+      when Success(StoreMeta)
+        meta = try.get
+        meta.url?.try{|url| puts url}
+      end        
+    end
+  end
+
   def list
     each do |try|
       case try

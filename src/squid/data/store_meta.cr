@@ -22,6 +22,10 @@ class Squid::StoreMeta
   def initialize(@type : UInt8, @len : UInt32, @subs : Array(Meta), @clue : String)
   end
 
+  def url?
+    @subs.find(&.type.url?).try(&.str)
+  end
+
   def type_name
     Meta.type_name(@type)
   end

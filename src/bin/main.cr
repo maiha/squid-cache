@@ -23,7 +23,8 @@ class Main
 
     Commands:
       check        print broken cache
-      list         print all cache etnry
+      list         print all cache entry
+      keys         print all url
     EOF
 
   def run
@@ -31,6 +32,7 @@ class Main
     prog = Squid::Program.new(dir, verbose)
     case cmd
     when "check"  then prog.check
+    when "keys"   then prog.keys
     when "list"   then prog.list
     else
       die "command not supported: #{cmd} "
