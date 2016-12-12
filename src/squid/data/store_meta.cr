@@ -1,3 +1,5 @@
+require "http/client"
+
 class Squid::StoreMeta
   def self.from_io(io : IO, clue : String = "(raw bytes)") : Try(StoreMeta)
     reader = BytesReader.new(io, clue)
@@ -30,13 +32,52 @@ class Squid::StoreMeta
     Meta.type_name(@type)
   end
 
+  def http_response : Try(HTTP::Client::Response)
+    Try(HTTP::Client::Response).try {
+      bytesize = File.size(@clue)
+      bytes = Bytes.new(bytesize - @len)
+      File.open(@clue) do |file|
+        file.seek(@len)
+        HTTP::Client::Response.from_io(file)
+      end
+    }
+  end
+
+  def http_response : Try(HTTP::Client::Response)
+    Try(HTTP::Client::Response).try {
+      bytesize = File.size(@clue)
+      bytes = Bytes.new(bytesize - @len)
+      File.open(@clue) do |file|
+        file.seek(@len)
+        HTTP::Client::Response.from_io(file)
+      end
+    }
+  end
+
+  def read_bytes : Try(Bytes)
+    Try(Bytes).try {
+      bytesize = File.size(@clue)
+      bytes = Bytes.new(bytesize - @len)
+      File.open(@clue) do |file|
+        file.seek(@len)
+        file.read_fully(bytes)
+        bytes
+      end
+    }
+  end
+
   def to_s(io)
-    io << "#{@clue}: #{type_name}(#{@len})"
+    if url = url?
+      io << "#{@clue}: #{url}"
+    else
+      io << "#{@clue}: #{type_name}(#{@len})"
+    end
   end
 
   def inspect(io)
     to_s(io)
     @subs.each_with_index do |sub, i|
+      next unless sub.valid?
       io << "\n  #{i}: #{sub}"
     end
   end

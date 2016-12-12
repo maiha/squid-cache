@@ -1,6 +1,6 @@
 record Squid::Meta,
-  type  : UInt8,
-  len   : Int32,
+  type_value : UInt8,
+  len : Int32,
   value : Bytes do
 
   def self.from_reader(reader : BytesReader, clue : String)
@@ -14,20 +14,36 @@ record Squid::Meta,
     LibSquid::StoreMetaType.from_value?(type).inspect
   end
 
-  @_type : LibSquid::StoreMetaType?
-  def type
-    (@_type ||= LibSquid::StoreMetaType.from_value?(@type)).not_nil!
-  end
-  
-  def type_name
-    self.class.type_name(@type)
+  # @type : LibSquid::StoreMetaType?
+  def valid?
+    valid.success?
   end
 
+  def valid : Try(Bool)
+    Try(Bool).try {
+      type                      # raise if bound error
+      true
+    }
+  end
+
+  def type
+    LibSquid::StoreMetaType.from_value(@type_value)
+  end
+  
+  def type?
+    LibSquid::StoreMetaType.from_value?(@type_value)
+  end
+  
   def str
     String.new(@value.pointer(len-1), len-1)   # last byte is null
   end
 
   def to_s(io)
-    io << "#{type_name}(#{@len})"
+    case type?.inspect
+    when "URL"
+      io << str
+    else
+      io << "#{type?.inspect}(#{@len})"
+    end
   end
 end
