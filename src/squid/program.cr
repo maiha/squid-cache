@@ -4,6 +4,16 @@ class Squid::Program
   def initialize(@dir : String, @verbose : Bool = false)
   end
 
+  def check
+    grep(Failure(StoreMeta)).each do |try|
+      STDERR.puts try.failed.value.message
+    end
+  end
+
+  def count
+    puts count(&.success?)
+  end
+
   def get(url)
     try = find_by_url(url).flat_map(&.read_bytes)
     try = try.flat_map{|i| extract_body(i)} if !@verbose
@@ -12,12 +22,6 @@ class Squid::Program
       STDOUT.write bytes
     else
       STDERR.puts "HTTP/1.1 404 Not Found\r\n\r\n#{try.failed.value.message}"
-    end
-  end
-
-  def check
-    grep(Failure(StoreMeta)).each do |try|
-      STDERR.puts try.failed.value.message
     end
   end
 

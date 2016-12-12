@@ -23,6 +23,7 @@ class Main
 
     Commands:
       check        print broken cache
+      count        print number of cache
       get URL      print HTTP Response for the URL
       keys         print all url
       list         print all cache entry
@@ -33,6 +34,7 @@ class Main
     prog = Squid::Program.new(dir, verbose)
     case cmd
     when "check"  then prog.check
+    when "count"  then prog.count
     when "get"    then prog.get(args.shift { die "key not found" })
     when "keys"   then prog.keys
     when "list"   then prog.list
