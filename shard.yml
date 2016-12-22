@@ -5,25 +5,9 @@ authors:
   - maiha <maiha@wota.jp>
 
 dependencies:
-  try:
-    github: maiha/try.cr
-    version: 0.2.0
-
-  ext:
-    github: maiha/ext.cr
-    version: 0.1.2
-
-  opts:
-    github: maiha/opts.cr
-    version: 0.1.0
-
-  shard:
-    github: maiha/shard.cr
-    version: 0.1.1
-
-  toml-config:
-      github: maiha/toml-config.cr
-      version: 0.2.0
+  app:
+    github: maiha/app.cr
+    version: 0.3.0
 
 targets:
   squid-cache:
