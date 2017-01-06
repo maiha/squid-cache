@@ -2,7 +2,7 @@
 
 squid-cache utility
 
-- powered by [crystal](http://crystal-lang.org/)-0.20.1
+- powered by [crystal](http://crystal-lang.org/)-0.20.4
 - squid-3.5.12
 
 ## Usage

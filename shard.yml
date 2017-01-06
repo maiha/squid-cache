@@ -1,5 +1,5 @@
 name: squid-cache
-version: 0.2.0
+version: 0.2.1
 
 authors:
   - maiha <maiha@wota.jp>
@@ -7,12 +7,10 @@ authors:
 dependencies:
   app:
     github: maiha/app.cr
-    version: 0.3.0
+    version: 0.3.2
 
 targets:
   squid-cache:
     main: src/bin/main.cr
-
-crystal: 0.20.1
 
 license: MIT
